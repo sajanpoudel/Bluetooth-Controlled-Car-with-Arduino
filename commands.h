@@ -13,7 +13,10 @@ enum Command {
   CMD_LEFT,
   CMD_RIGHT,
   CMD_STOP,
-  CMD_SPEED
+  CMD_SPEED,
+  CMD_FASTER,
+  CMD_SLOWER,
+  CMD_STATUS
 };
 
 
@@ -25,6 +28,9 @@ inline Command parseCommand(const char* text) {
   if (strcmp(text, "forward") == 0) return CMD_FORWARD;
   if (strcmp(text, "stop") == 0) return CMD_STOP;
   if (strcmp(text, "backward") == 0) return CMD_BACKWARD;
+  if (strcmp(text, "faster") == 0) return CMD_FASTER;
+  if (strcmp(text, "slower") == 0) return CMD_SLOWER;
+  if (strcmp(text, "status") == 0) return CMD_STATUS;
   if (strstr(text, "left") != 0) return CMD_LEFT;
   if (strstr(text, "right") != 0) return CMD_RIGHT;
   return CMD_SPEED;
@@ -39,6 +45,9 @@ inline const char* commandName(Command command) {
     case CMD_RIGHT: return "right";
     case CMD_STOP: return "stop";
     case CMD_SPEED: return "speed";
+    case CMD_FASTER: return "faster";
+    case CMD_SLOWER: return "slower";
+    case CMD_STATUS: return "status";
     default: return "none";
   }
 }
@@ -48,6 +57,16 @@ inline int clampPwm(int value) {
   if (value < 0) return 0;
   if (value > 255) return 255;
   return value;
+}
+
+// How much faster and slower change the base speed.
+const int SPEED_STEP = 25;
+
+// The speed after a faster or slower command, kept inside 0 to 255.
+inline int adjustSpeed(int speed, Command command) {
+  if (command == CMD_FASTER) return clampPwm(speed + SPEED_STEP);
+  if (command == CMD_SLOWER) return clampPwm(speed - SPEED_STEP);
+  return clampPwm(speed);
 }
 
 // Reads a speed from text such as "180". Text that is not a number gives 0.

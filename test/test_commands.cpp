@@ -133,6 +133,23 @@ static void test_every_command_has_a_name() {
 }
 
 
+static void test_faster_slower_and_status_are_exact_words() {
+  CHECK(parseCommand("faster") == CMD_FASTER);
+  CHECK(parseCommand("slower") == CMD_SLOWER);
+  CHECK(parseCommand("status") == CMD_STATUS);
+  CHECK(parseCommand("faster please") == CMD_SPEED);
+}
+
+
+static void test_adjust_speed_steps_and_clamps() {
+  CHECK(adjustSpeed(100, CMD_FASTER) == 100 + SPEED_STEP);
+  CHECK(adjustSpeed(100, CMD_SLOWER) == 100 - SPEED_STEP);
+  CHECK(adjustSpeed(250, CMD_FASTER) == 255);
+  CHECK(adjustSpeed(10, CMD_SLOWER) == 0);
+  CHECK(adjustSpeed(120, CMD_STOP) == 120);
+}
+
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -152,6 +169,8 @@ int main() {
   test_right_slows_the_right_wheel();
   test_stop_brakes_both_motors();
   test_turns_never_leave_the_pwm_range();
+  test_faster_slower_and_status_are_exact_words();
+  test_adjust_speed_steps_and_clamps();
   test_every_command_has_a_name();
   test_failsafe_waits_for_the_timeout();
   test_failsafe_survives_the_millis_rollover();
