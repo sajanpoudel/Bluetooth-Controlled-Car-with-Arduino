@@ -32,13 +32,15 @@ void setup() {
   pinMode(motorRpwm,OUTPUT);
 }
 
-// Collects the characters that are waiting on the serial port into one command.
+// Collects the characters that are waiting on the serial port into one command without
+// surrounding whitespace.
 String readCommand(){
   String input = "";
   while(Serial.available()){
     input += (char)Serial.read();
     delay(SERIAL_READ_DELAY_MS);
   }
+  input.trim();  // phone apps and the Serial Monitor append a newline
   return input;
 }
 
