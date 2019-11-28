@@ -15,8 +15,15 @@ static void test_left_and_right_only_need_to_be_contained() {
   CHECK(parseCommand("go right") == CMD_RIGHT);
 }
 
+
+static void test_empty_text_is_no_command() {
+  CHECK(parseCommand("") == CMD_NONE);
+  CHECK(parseCommand(0) == CMD_NONE);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
+  test_empty_text_is_no_command();
   return 0;
 }
