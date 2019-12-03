@@ -59,6 +59,13 @@ inline int clampPwm(int value) {
   return value;
 }
 
+// One step of a gradual speed change: moves current towards target by at most step.
+inline int rampTowards(int current, int target, int step) {
+  if (current < target) return current + step > target ? target : current + step;
+  if (current > target) return current - step < target ? target : current - step;
+  return current;
+}
+
 // How much faster and slower change the base speed.
 const int SPEED_STEP = 25;
 

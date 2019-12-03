@@ -150,6 +150,19 @@ static void test_adjust_speed_steps_and_clamps() {
 }
 
 
+static void test_ramp_moves_in_steps_and_stops_at_the_target() {
+  CHECK(rampTowards(0, 100, 30) == 30);
+  CHECK(rampTowards(90, 100, 30) == 100);
+  CHECK(rampTowards(100, 100, 30) == 100);
+}
+
+
+static void test_ramp_also_slows_down_in_steps() {
+  CHECK(rampTowards(100, 0, 30) == 70);
+  CHECK(rampTowards(10, 0, 30) == 0);
+}
+
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -171,6 +184,8 @@ int main() {
   test_turns_never_leave_the_pwm_range();
   test_faster_slower_and_status_are_exact_words();
   test_adjust_speed_steps_and_clamps();
+  test_ramp_moves_in_steps_and_stops_at_the_target();
+  test_ramp_also_slows_down_in_steps();
   test_every_command_has_a_name();
   test_failsafe_waits_for_the_timeout();
   test_failsafe_survives_the_millis_rollover();
