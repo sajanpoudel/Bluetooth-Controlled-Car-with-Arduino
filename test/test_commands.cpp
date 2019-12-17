@@ -27,10 +27,17 @@ static void test_numbers_are_speed_values() {
   CHECK(parseCommand("0") == CMD_SPEED);
 }
 
+
+static void test_exact_words_are_case_sensitive() {
+  CHECK(parseCommand("Forward") == CMD_SPEED);
+  CHECK(parseCommand("STOP") == CMD_SPEED);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
   test_empty_text_is_no_command();
   test_numbers_are_speed_values();
+  test_exact_words_are_case_sensitive();
   return 0;
 }
