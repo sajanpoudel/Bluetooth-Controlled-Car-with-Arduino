@@ -21,9 +21,16 @@ static void test_empty_text_is_no_command() {
   CHECK(parseCommand(0) == CMD_NONE);
 }
 
+
+static void test_numbers_are_speed_values() {
+  CHECK(parseCommand("200") == CMD_SPEED);
+  CHECK(parseCommand("0") == CMD_SPEED);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
   test_empty_text_is_no_command();
+  test_numbers_are_speed_values();
   return 0;
 }
