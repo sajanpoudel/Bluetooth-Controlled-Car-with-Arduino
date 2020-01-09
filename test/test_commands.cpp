@@ -33,11 +33,18 @@ static void test_exact_words_are_case_sensitive() {
   CHECK(parseCommand("STOP") == CMD_SPEED);
 }
 
+
+static void test_forward_inside_text_is_not_forward() {
+  CHECK(parseCommand("forward!") == CMD_SPEED);
+  CHECK(parseCommand("stop now") == CMD_SPEED);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
   test_empty_text_is_no_command();
   test_numbers_are_speed_values();
   test_exact_words_are_case_sensitive();
+  test_forward_inside_text_is_not_forward();
   return 0;
 }
