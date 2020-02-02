@@ -39,6 +39,11 @@ static void test_forward_inside_text_is_not_forward() {
   CHECK(parseCommand("stop now") == CMD_SPEED);
 }
 
+
+static void test_left_wins_over_right() {
+  CHECK(parseCommand("left right") == CMD_LEFT);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -46,5 +51,6 @@ int main() {
   test_numbers_are_speed_values();
   test_exact_words_are_case_sensitive();
   test_forward_inside_text_is_not_forward();
+  test_left_wins_over_right();
   return 0;
 }
