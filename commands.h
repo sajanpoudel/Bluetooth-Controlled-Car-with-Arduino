@@ -28,4 +28,11 @@ inline Command parseCommand(const char* text) {
   return CMD_SPEED;
 }
 
+// Keeps a PWM value inside the 0 to 255 range that analogWrite accepts.
+inline int clampPwm(int value) {
+  if (value < 0) return 0;
+  if (value > 255) return 255;
+  return value;
+}
+
 #endif
