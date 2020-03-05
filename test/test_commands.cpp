@@ -44,6 +44,13 @@ static void test_left_wins_over_right() {
   CHECK(parseCommand("left right") == CMD_LEFT);
 }
 
+
+static void test_clamp_keeps_values_in_range() {
+  CHECK(clampPwm(0) == 0);
+  CHECK(clampPwm(125) == 125);
+  CHECK(clampPwm(255) == 255);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -52,5 +59,6 @@ int main() {
   test_exact_words_are_case_sensitive();
   test_forward_inside_text_is_not_forward();
   test_left_wins_over_right();
+  test_clamp_keeps_values_in_range();
   return 0;
 }
