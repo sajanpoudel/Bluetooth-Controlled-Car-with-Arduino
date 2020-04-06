@@ -51,6 +51,14 @@ static void test_clamp_keeps_values_in_range() {
   CHECK(clampPwm(255) == 255);
 }
 
+
+static void test_clamp_limits_extremes() {
+  CHECK(clampPwm(-1) == 0);
+  CHECK(clampPwm(-500) == 0);
+  CHECK(clampPwm(256) == 255);
+  CHECK(clampPwm(9999) == 255);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -60,5 +68,6 @@ int main() {
   test_forward_inside_text_is_not_forward();
   test_left_wins_over_right();
   test_clamp_keeps_values_in_range();
+  test_clamp_limits_extremes();
   return 0;
 }
