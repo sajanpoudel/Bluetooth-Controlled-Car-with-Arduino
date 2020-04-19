@@ -35,4 +35,9 @@ inline int clampPwm(int value) {
   return value;
 }
 
+// Reads a speed from text such as "180". Text that is not a number gives 0.
+inline int parseSpeed(const char* text) {
+  return clampPwm(atoi(text));
+}
+
 #endif
