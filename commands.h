@@ -1,6 +1,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <stdlib.h>
 #include <string.h>
 
 // Movement commands that can arrive over the serial port.
