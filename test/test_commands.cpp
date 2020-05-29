@@ -59,6 +59,12 @@ static void test_clamp_limits_extremes() {
   CHECK(clampPwm(9999) == 255);
 }
 
+
+static void test_parse_speed_reads_numbers() {
+  CHECK(parseSpeed("180") == 180);
+  CHECK(parseSpeed("0") == 0);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -69,5 +75,6 @@ int main() {
   test_left_wins_over_right();
   test_clamp_keeps_values_in_range();
   test_clamp_limits_extremes();
+  test_parse_speed_reads_numbers();
   return 0;
 }
