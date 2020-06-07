@@ -65,6 +65,12 @@ static void test_parse_speed_reads_numbers() {
   CHECK(parseSpeed("0") == 0);
 }
 
+
+static void test_parse_speed_clamps_big_values() {
+  CHECK(parseSpeed("999") == 255);
+  CHECK(parseSpeed("-20") == 0);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -76,5 +82,6 @@ int main() {
   test_clamp_keeps_values_in_range();
   test_clamp_limits_extremes();
   test_parse_speed_reads_numbers();
+  test_parse_speed_clamps_big_values();
   return 0;
 }
