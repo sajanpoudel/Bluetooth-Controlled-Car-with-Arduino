@@ -65,7 +65,7 @@ void loop() {
       rght();
       break;
     case CMD_SPEED:
-      motorSpeed = input.toInt();
+      motorSpeed = parseSpeed(input.c_str());
       break;
     case CMD_NONE:
       break;
