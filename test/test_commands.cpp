@@ -71,6 +71,11 @@ static void test_parse_speed_clamps_big_values() {
   CHECK(parseSpeed("-20") == 0);
 }
 
+
+static void test_parse_speed_of_text_is_zero() {
+  CHECK(parseSpeed("fast") == 0);
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -83,5 +88,6 @@ int main() {
   test_clamp_limits_extremes();
   test_parse_speed_reads_numbers();
   test_parse_speed_clamps_big_values();
+  test_parse_speed_of_text_is_zero();
   return 0;
 }
