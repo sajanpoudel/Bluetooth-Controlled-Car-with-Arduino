@@ -41,4 +41,14 @@ inline int parseSpeed(const char* text) {
   return clampPwm(atoi(text));
 }
 
+// What the motor driver pins and PWM outputs should be for one command.
+struct DriveSignals {
+  int leftSpeed;
+  int rightSpeed;
+  int l1;
+  int l2;
+  int r1;
+  int r2;
+};
+
 #endif
