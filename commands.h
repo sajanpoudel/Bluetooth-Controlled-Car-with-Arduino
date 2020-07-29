@@ -51,4 +51,27 @@ struct DriveSignals {
   int r2;
 };
 
+// Outputs for a movement command at the given base speed. turn is the speed difference
+// between the wheels while turning. Speeds are already clamped to 0 to 255.
+inline DriveSignals signalsFor(Command command, int speed, int turn) {
+  DriveSignals s = {0, 0, 1, 1, 1, 1};  // brake
+  switch (command) {
+    case CMD_FORWARD:
+      s = {clampPwm(speed), clampPwm(speed), 1, 0, 1, 0};
+      break;
+    case CMD_BACKWARD:
+      s = {clampPwm(speed), clampPwm(speed), 0, 1, 0, 1};
+      break;
+    case CMD_LEFT:
+      s = {clampPwm(speed - turn), clampPwm(speed + turn), 0, 1, 1, 0};
+      break;
+    case CMD_RIGHT:
+      s = {clampPwm(speed + turn), clampPwm(speed - turn), 1, 0, 0, 1};
+      break;
+    default:
+      break;
+  }
+  return s;
+}
+
 #endif
