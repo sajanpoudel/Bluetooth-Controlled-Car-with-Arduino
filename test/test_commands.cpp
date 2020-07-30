@@ -112,6 +112,20 @@ static void test_turns_never_leave_the_pwm_range() {
   CHECK(same(signalsFor(CMD_RIGHT, 20, 50), 70, 0, 1, 0, 0, 1));
 }
 
+static void test_failsafe_waits_for_the_timeout() {
+  CHECK(!shouldFailsafeStop(1000, 500, 1000));
+  CHECK(!shouldFailsafeStop(1500, 500, 1000));
+  CHECK(shouldFailsafeStop(1501, 500, 1000));
+}
+
+
+static void test_failsafe_survives_the_millis_rollover() {
+  uint32_t last = 0xFFFFFF00UL;
+  CHECK(!shouldFailsafeStop(0x00000100UL, last, 1000));
+  CHECK(shouldFailsafeStop(0x00000800UL, last, 1000));
+}
+
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -131,5 +145,7 @@ int main() {
   test_right_slows_the_right_wheel();
   test_stop_brakes_both_motors();
   test_turns_never_leave_the_pwm_range();
+  test_failsafe_waits_for_the_timeout();
+  test_failsafe_survives_the_millis_rollover();
   return 0;
 }

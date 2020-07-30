@@ -17,6 +17,10 @@ const int motorRpwm = 11;
 const long SERIAL_BAUD = 9600; // matches the default HC-05 baud rate
 const int SERIAL_READ_DELAY_MS = 5; // lets the next byte of a command arrive
 
+const unsigned long COMMAND_TIMEOUT_MS = 2000; // the car brakes when the phone goes silent for this long
+unsigned long lastCommandAt = 0;
+bool moving = false;
+
 int motorSpeed = 125; // default speed, can be changed by sending a number
 const int turn = 50;  // speed difference between the wheels while turning
 
@@ -47,8 +51,17 @@ String readCommand(){
 // Reads a command and runs the matching movement.
 void loop() {
   String input = readCommand();
+  Command command = parseCommand(input.c_str());
 
-  switch (parseCommand(input.c_str())) {
+  if (command != CMD_NONE) {
+    lastCommandAt = millis();
+    moving = (command != CMD_STOP && command != CMD_SPEED);
+  } else if (moving && shouldFailsafeStop(millis(), lastCommandAt, COMMAND_TIMEOUT_MS)) {
+    stp();
+    moving = false;
+  }
+
+  switch (command) {
     case CMD_FORWARD:
       fwd();
       break;

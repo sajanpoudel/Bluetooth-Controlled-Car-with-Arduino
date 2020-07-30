@@ -1,6 +1,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -72,6 +73,12 @@ inline DriveSignals signalsFor(Command command, int speed, int turn) {
       break;
   }
   return s;
+}
+
+// True when the car has gone longer than timeoutMs without a command and should brake.
+// The counters are 32 bit like millis() on an Uno and may wrap around.
+inline bool shouldFailsafeStop(uint32_t now, uint32_t lastCommandAt, uint32_t timeoutMs) {
+  return (uint32_t)(now - lastCommandAt) > timeoutMs;
 }
 
 #endif
