@@ -1,6 +1,10 @@
 #include "minitest.h"
 #include "../commands.h"
 
+static bool same(DriveSignals a, int ls, int rs, int l1, int l2, int r1, int r2) {
+  return a.leftSpeed == ls && a.rightSpeed == rs && a.l1 == l1 && a.l2 == l2 && a.r1 == r1 && a.r2 == r2;
+}
+
 static void test_exact_commands() {
   CHECK(parseCommand("forward") == CMD_FORWARD);
   CHECK(parseCommand("backward") == CMD_BACKWARD);
