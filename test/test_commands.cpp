@@ -80,6 +80,11 @@ static void test_parse_speed_of_text_is_zero() {
   CHECK(parseSpeed("fast") == 0);
 }
 
+
+static void test_forward_drives_both_sides_forward() {
+  CHECK(same(signalsFor(CMD_FORWARD, 125, 50), 125, 125, 1, 0, 1, 0));
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -93,5 +98,6 @@ int main() {
   test_parse_speed_reads_numbers();
   test_parse_speed_clamps_big_values();
   test_parse_speed_of_text_is_zero();
+  test_forward_drives_both_sides_forward();
   return 0;
 }
