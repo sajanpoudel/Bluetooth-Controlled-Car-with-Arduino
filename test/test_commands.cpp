@@ -85,6 +85,11 @@ static void test_forward_drives_both_sides_forward() {
   CHECK(same(signalsFor(CMD_FORWARD, 125, 50), 125, 125, 1, 0, 1, 0));
 }
 
+
+static void test_backward_reverses_both_sides() {
+  CHECK(same(signalsFor(CMD_BACKWARD, 125, 50), 125, 125, 0, 1, 0, 1));
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -99,5 +104,6 @@ int main() {
   test_parse_speed_clamps_big_values();
   test_parse_speed_of_text_is_zero();
   test_forward_drives_both_sides_forward();
+  test_backward_reverses_both_sides();
   return 0;
 }
