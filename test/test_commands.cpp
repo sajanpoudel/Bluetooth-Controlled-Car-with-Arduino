@@ -95,6 +95,11 @@ static void test_left_slows_the_left_wheel() {
   CHECK(same(signalsFor(CMD_LEFT, 125, 50), 75, 175, 0, 1, 1, 0));
 }
 
+
+static void test_right_slows_the_right_wheel() {
+  CHECK(same(signalsFor(CMD_RIGHT, 125, 50), 175, 75, 1, 0, 0, 1));
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -111,5 +116,6 @@ int main() {
   test_forward_drives_both_sides_forward();
   test_backward_reverses_both_sides();
   test_left_slows_the_left_wheel();
+  test_right_slows_the_right_wheel();
   return 0;
 }
