@@ -10,6 +10,9 @@ The sketch reads a whole command from the serial port and compares it as text.
 | `right` | Turn right (the text may contain other words) |
 | `stop` | Brake |
 | a number | Set the base speed, 0 to 255 |
+| `faster` | Raise the base speed by 25 |
+| `slower` | Lower the base speed by 25 |
+| `status` | Reply with the speed and whether the car is moving |
 
 Turns change the two wheel speeds by `turn` (50) in opposite directions. Values are clamped to the PWM range 0 to 255.
 

@@ -57,7 +57,8 @@ void loop() {
     Serial.print("ok ");
     Serial.println(commandName(command));
     lastCommandAt = millis();
-    moving = (command != CMD_STOP && command != CMD_SPEED);
+    moving = (command != CMD_STOP && command != CMD_SPEED && command != CMD_FASTER &&
+              command != CMD_SLOWER && command != CMD_STATUS);
   } else if (moving && shouldFailsafeStop(millis(), lastCommandAt, COMMAND_TIMEOUT_MS)) {
     stp();
     moving = false;
@@ -81,6 +82,15 @@ void loop() {
       break;
     case CMD_SPEED:
       motorSpeed = parseSpeed(input.c_str());
+      break;
+    case CMD_FASTER:
+    case CMD_SLOWER:
+      motorSpeed = adjustSpeed(motorSpeed, command);
+      break;
+    case CMD_STATUS:
+      Serial.print("speed ");
+      Serial.print(motorSpeed);
+      Serial.println(moving ? " moving" : " stopped");
       break;
     case CMD_NONE:
       break;
