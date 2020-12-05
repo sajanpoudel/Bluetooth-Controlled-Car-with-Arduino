@@ -21,6 +21,15 @@ const unsigned long COMMAND_TIMEOUT_MS = 2000; // the car brakes when the phone 
 unsigned long lastCommandAt = 0;
 bool moving = false;
 
+// Speeds change in small steps so the car does not jerk or lose the wheels' grip.
+const int RAMP_STEP = 15;
+const unsigned long RAMP_INTERVAL_MS = 20;
+int targetLeft = 0;
+int targetRight = 0;
+int currentLeft = 0;
+int currentRight = 0;
+unsigned long lastRampAt = 0;
+
 int motorSpeed = 125; // default speed, can be changed by sending a number
 const int turn = 50;  // speed difference between the wheels while turning
 
@@ -50,6 +59,7 @@ String readCommand(){
 
 // Reads a command and runs the matching movement.
 void loop() {
+  updateRamp();
   String input = readCommand();
   Command command = parseCommand(input.c_str());
 
@@ -102,14 +112,31 @@ void driveSignals(DriveSignals s){
   drive(s.leftSpeed, s.rightSpeed, s.l1, s.l2, s.r1, s.r2);
 }
 
-// Sets the PWM speed of each side and the direction pins of both motors.
+// Sets the direction pins of both motors at once and the speed the wheels should ramp up or down to.
+// Braking is immediate, everything else goes through updateRamp().
 void drive(int leftSpeed, int rightSpeed, int l1, int l2, int r1, int r2){
-  analogWrite(motorLpwm, constrain(leftSpeed, 0, 255));
-  analogWrite(motorRpwm, constrain(rightSpeed, 0, 255));
+  targetLeft = constrain(leftSpeed, 0, 255);
+  targetRight = constrain(rightSpeed, 0, 255);
+  if (targetLeft == 0 && targetRight == 0) {
+    currentLeft = 0;
+    currentRight = 0;
+    analogWrite(motorLpwm, 0);
+    analogWrite(motorRpwm, 0);
+  }
   digitalWrite(motorLpin1, l1);
   digitalWrite(motorLpin2, l2);
   digitalWrite(motorRpin1, r1);
   digitalWrite(motorRpin2, r2);
+}
+
+// Moves the PWM outputs a step closer to the target speeds every RAMP_INTERVAL_MS.
+void updateRamp(){
+  if (millis() - lastRampAt < RAMP_INTERVAL_MS) return;
+  lastRampAt = millis();
+  currentLeft = rampTowards(currentLeft, targetLeft, RAMP_STEP);
+  currentRight = rampTowards(currentRight, targetRight, RAMP_STEP);
+  analogWrite(motorLpwm, currentLeft);
+  analogWrite(motorRpwm, currentRight);
 }
 
 // Both sides forward.
