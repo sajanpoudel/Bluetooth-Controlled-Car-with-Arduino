@@ -106,6 +106,12 @@ static void test_stop_brakes_both_motors() {
   CHECK(same(signalsFor(CMD_NONE, 125, 50), 0, 0, 1, 1, 1, 1));
 }
 
+
+static void test_turns_never_leave_the_pwm_range() {
+  CHECK(same(signalsFor(CMD_LEFT, 240, 50), 190, 255, 0, 1, 1, 0));
+  CHECK(same(signalsFor(CMD_RIGHT, 20, 50), 70, 0, 1, 0, 0, 1));
+}
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -124,5 +130,6 @@ int main() {
   test_left_slows_the_left_wheel();
   test_right_slows_the_right_wheel();
   test_stop_brakes_both_motors();
+  test_turns_never_leave_the_pwm_range();
   return 0;
 }
