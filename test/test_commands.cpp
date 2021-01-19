@@ -126,6 +126,13 @@ static void test_failsafe_survives_the_millis_rollover() {
 }
 
 
+static void test_every_command_has_a_name() {
+  CHECK(strcmp(commandName(CMD_FORWARD), "forward") == 0);
+  CHECK(strcmp(commandName(CMD_SPEED), "speed") == 0);
+  CHECK(strcmp(commandName(CMD_NONE), "none") == 0);
+}
+
+
 int main() {
   test_exact_commands();
   test_left_and_right_only_need_to_be_contained();
@@ -145,6 +152,7 @@ int main() {
   test_right_slows_the_right_wheel();
   test_stop_brakes_both_motors();
   test_turns_never_leave_the_pwm_range();
+  test_every_command_has_a_name();
   test_failsafe_waits_for_the_timeout();
   test_failsafe_survives_the_millis_rollover();
   return 0;

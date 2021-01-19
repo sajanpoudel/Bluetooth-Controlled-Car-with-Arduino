@@ -54,6 +54,8 @@ void loop() {
   Command command = parseCommand(input.c_str());
 
   if (command != CMD_NONE) {
+    Serial.print("ok ");
+    Serial.println(commandName(command));
     lastCommandAt = millis();
     moving = (command != CMD_STOP && command != CMD_SPEED);
   } else if (moving && shouldFailsafeStop(millis(), lastCommandAt, COMMAND_TIMEOUT_MS)) {

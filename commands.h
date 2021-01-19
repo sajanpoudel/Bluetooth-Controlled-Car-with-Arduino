@@ -30,6 +30,19 @@ inline Command parseCommand(const char* text) {
   return CMD_SPEED;
 }
 
+// The short name of a command, sent back to the phone as an acknowledgement.
+inline const char* commandName(Command command) {
+  switch (command) {
+    case CMD_FORWARD: return "forward";
+    case CMD_BACKWARD: return "backward";
+    case CMD_LEFT: return "left";
+    case CMD_RIGHT: return "right";
+    case CMD_STOP: return "stop";
+    case CMD_SPEED: return "speed";
+    default: return "none";
+  }
+}
+
 // Keeps a PWM value inside the 0 to 255 range that analogWrite accepts.
 inline int clampPwm(int value) {
   if (value < 0) return 0;
