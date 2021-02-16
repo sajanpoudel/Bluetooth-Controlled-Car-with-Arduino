@@ -46,23 +46,27 @@ String readCommand(){
 void loop() {
   String input = readCommand();
 
-  if(input=="forward"){
-    fwd();
-  }
-  else if(input=="stop"){
-    stp();
-  }
-  else if(input=="backward"){
-    rev();
-  }
-  else if(input.indexOf("left")>-1){
-    lft();
-  }
-  else if(input.indexOf("right")>-1){
-    rght();
-  }
-  else if(input!=""){
-    motorSpeed=input.toInt();
+  switch (parseCommand(input.c_str())) {
+    case CMD_FORWARD:
+      fwd();
+      break;
+    case CMD_STOP:
+      stp();
+      break;
+    case CMD_BACKWARD:
+      rev();
+      break;
+    case CMD_LEFT:
+      lft();
+      break;
+    case CMD_RIGHT:
+      rght();
+      break;
+    case CMD_SPEED:
+      motorSpeed = input.toInt();
+      break;
+    case CMD_NONE:
+      break;
   }
 }
 
