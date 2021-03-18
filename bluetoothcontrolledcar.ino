@@ -70,6 +70,11 @@ void loop() {
   }
 }
 
+// Applies a set of drive signals to the motor driver.
+void driveSignals(DriveSignals s){
+  drive(s.leftSpeed, s.rightSpeed, s.l1, s.l2, s.r1, s.r2);
+}
+
 // Sets the PWM speed of each side and the direction pins of both motors.
 void drive(int leftSpeed, int rightSpeed, int l1, int l2, int r1, int r2){
   analogWrite(motorLpwm, constrain(leftSpeed, 0, 255));
@@ -82,7 +87,7 @@ void drive(int leftSpeed, int rightSpeed, int l1, int l2, int r1, int r2){
 
 // Both sides forward.
 void fwd(){
-  drive(motorSpeed, motorSpeed, 1, 0, 1, 0);
+  driveSignals(signalsFor(CMD_FORWARD, motorSpeed, turn));
 }
 
 // Both sides backward.
