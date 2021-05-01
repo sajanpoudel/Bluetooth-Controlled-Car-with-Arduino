@@ -92,7 +92,7 @@ void fwd(){
 
 // Both sides backward.
 void rev(){
-  drive(motorSpeed, motorSpeed, 0, 1, 0, 1);
+  driveSignals(signalsFor(CMD_BACKWARD, motorSpeed, turn));
 }
 
 // Left side slower and reversed, so the car turns left.
