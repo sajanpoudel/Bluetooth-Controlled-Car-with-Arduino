@@ -97,7 +97,7 @@ void rev(){
 
 // Left side slower and reversed, so the car turns left.
 void lft(){
-  drive(motorSpeed - turn, motorSpeed + turn, 0, 1, 1, 0);
+  driveSignals(signalsFor(CMD_LEFT, motorSpeed, turn));
 }
 
 // Right side slower and reversed, so the car turns right.
