@@ -102,7 +102,7 @@ void lft(){
 
 // Right side slower and reversed, so the car turns right.
 void rght(){
-  drive(motorSpeed + turn, motorSpeed - turn, 1, 0, 0, 1);
+  driveSignals(signalsFor(CMD_RIGHT, motorSpeed, turn));
 }
 
 // Brakes both motors.
