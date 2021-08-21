@@ -107,5 +107,5 @@ void rght(){
 
 // Brakes both motors.
 void stp(){
-  drive(0, 0, 1, 1, 1, 1);
+  driveSignals(signalsFor(CMD_STOP, motorSpeed, turn));
 }
