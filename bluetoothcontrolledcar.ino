@@ -1,19 +1,24 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial BT(10, 11); //TX, RX respetively
+SoftwareSerial BT(10, 11); // TX, RX respectively
 String readdata;
-int motorLpin1=2;
-int motorLpin2=3;
-int motorRpin1=4;
-int motorRpin2=5;
-int motorLpwm=10;
-int motorRpwm=11;
 
-int motorSpeed=125;
-int turn=50;
+// Motor driver pins: direction pins for each side, then the PWM speed pins.
+const int motorLpin1 = 2;
+const int motorLpin2 = 3;
+const int motorRpin1 = 4;
+const int motorRpin2 = 5;
+const int motorLpwm = 10;
+const int motorRpwm = 11;
+
+const long SERIAL_BAUD = 9600;
+const int SERIAL_READ_DELAY_MS = 5;
+
+int motorSpeed = 125; // default speed, can be changed by sending a number
+const int turn = 50;  // speed difference between the wheels while turning
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(SERIAL_BAUD);
   Serial.flush();
   pinMode(motorLpin1,OUTPUT);
   pinMode(motorLpin2,OUTPUT);
@@ -27,7 +32,7 @@ void loop() {
   String input="";
   while(Serial.available()){
     input+=(char)Serial.read();
-    delay(5);
+    delay(SERIAL_READ_DELAY_MS);
   }
   
   if(input=="forward"){
