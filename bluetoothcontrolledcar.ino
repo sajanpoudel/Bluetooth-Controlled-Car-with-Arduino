@@ -55,48 +55,32 @@ void loop() {
   }
 }
 
+// Sets the PWM speed of each side and the direction pins of both motors.
+void drive(int leftSpeed, int rightSpeed, int l1, int l2, int r1, int r2){
+  analogWrite(motorLpwm, leftSpeed);
+  analogWrite(motorRpwm, rightSpeed);
+  digitalWrite(motorLpin1, l1);
+  digitalWrite(motorLpin2, l2);
+  digitalWrite(motorRpin1, r1);
+  digitalWrite(motorRpin2, r2);
+}
+
 void fwd(){
-  analogWrite(motorLpwm,motorSpeed);
-  analogWrite(motorRpwm,motorSpeed);
-  digitalWrite(motorLpin1,1);
-  digitalWrite(motorLpin2,0);
-  digitalWrite(motorRpin1,1);
-  digitalWrite(motorRpin2,0);
+  drive(motorSpeed, motorSpeed, 1, 0, 1, 0);
 }
 
 void rev(){
-  analogWrite(motorLpwm,motorSpeed);
-  analogWrite(motorRpwm,motorSpeed);
-  digitalWrite(motorLpin1,0);
-  digitalWrite(motorLpin2,1);
-  digitalWrite(motorRpin1,0);
-  digitalWrite(motorRpin2,1);
+  drive(motorSpeed, motorSpeed, 0, 1, 0, 1);
 }
 
 void lft(){
-  analogWrite(motorLpwm,motorSpeed-turn);
-  analogWrite(motorRpwm,motorSpeed+turn);
-  digitalWrite(motorLpin1,0);
-  digitalWrite(motorLpin2,1);
-  digitalWrite(motorRpin1,1);
-  digitalWrite(motorRpin2,0);
+  drive(motorSpeed - turn, motorSpeed + turn, 0, 1, 1, 0);
 }
 
 void rght(){
-  analogWrite(motorLpwm,motorSpeed+turn);
-  analogWrite(motorRpwm,motorSpeed-turn);
-  digitalWrite(motorLpin1,1);
-  digitalWrite(motorLpin2,0);
-  digitalWrite(motorRpin1,0);
-  digitalWrite(motorRpin2,1);
+  drive(motorSpeed + turn, motorSpeed - turn, 1, 0, 0, 1);
 }
 
 void stp(){
-  analogWrite(motorLpwm,0);
-  analogWrite(motorRpwm,0);
-  digitalWrite(motorLpin1,1);
-  digitalWrite(motorLpin2,1);
-  digitalWrite(motorRpin1,1);
-  digitalWrite(motorRpin2,1);
+  drive(0, 0, 1, 1, 1, 1);
 }
-
