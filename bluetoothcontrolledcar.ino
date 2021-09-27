@@ -28,13 +28,19 @@ void setup() {
   pinMode(motorRpwm,OUTPUT);
 }
 
-void loop() {
-  String input="";
+// Collects the characters that are waiting on the serial port into one command.
+String readCommand(){
+  String input = "";
   while(Serial.available()){
-    input+=(char)Serial.read();
+    input += (char)Serial.read();
     delay(SERIAL_READ_DELAY_MS);
   }
-  
+  return input;
+}
+
+void loop() {
+  String input = readCommand();
+
   if(input=="forward"){
     fwd();
   }
