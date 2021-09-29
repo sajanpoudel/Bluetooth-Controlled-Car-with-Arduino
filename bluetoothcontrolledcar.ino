@@ -63,8 +63,8 @@ void loop() {
 
 // Sets the PWM speed of each side and the direction pins of both motors.
 void drive(int leftSpeed, int rightSpeed, int l1, int l2, int r1, int r2){
-  analogWrite(motorLpwm, leftSpeed);
-  analogWrite(motorRpwm, rightSpeed);
+  analogWrite(motorLpwm, constrain(leftSpeed, 0, 255));
+  analogWrite(motorRpwm, constrain(rightSpeed, 0, 255));
   digitalWrite(motorLpin1, l1);
   digitalWrite(motorLpin2, l2);
   digitalWrite(motorRpin1, r1);
