@@ -1,5 +1,6 @@
 #include <SoftwareSerial.h>
 
+// Bluetooth module link. NOTE: pins 10 and 11 are also used for motor PWM below.
 SoftwareSerial BT(10, 11); // TX, RX respectively
 String readdata;
 
