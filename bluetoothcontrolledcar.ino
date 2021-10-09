@@ -12,7 +12,7 @@ const int motorRpin2 = 5;
 const int motorLpwm = 10;
 const int motorRpwm = 11;
 
-const long SERIAL_BAUD = 9600;
+const long SERIAL_BAUD = 9600; // matches the default HC-05 baud rate
 const int SERIAL_READ_DELAY_MS = 5;
 
 int motorSpeed = 125; // default speed, can be changed by sending a number
