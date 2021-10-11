@@ -28,3 +28,12 @@ Bluetooth module with your phone and send the commands above.
 
 - [Wiring](docs/wiring.md)
 - [Commands](docs/commands.md)
+
+## Tests and build
+
+```
+sh test/run.sh        # host side tests for commands.h (needs g++)
+sh scripts/compile.sh # compiles the sketch (needs arduino-cli and the AVR core)
+```
+
+The parsing and motor mapping live in `commands.h` so they can be tested on a computer.
