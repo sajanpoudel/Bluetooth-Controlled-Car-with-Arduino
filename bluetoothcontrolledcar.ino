@@ -18,6 +18,7 @@ const int SERIAL_READ_DELAY_MS = 5; // lets the next byte of a command arrive
 int motorSpeed = 125; // default speed, can be changed by sending a number
 const int turn = 50;  // speed difference between the wheels while turning
 
+// Opens the serial port and prepares every motor pin as an output.
 void setup() {
   Serial.begin(SERIAL_BAUD);
   Serial.flush();
