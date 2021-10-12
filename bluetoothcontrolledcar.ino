@@ -40,6 +40,7 @@ String readCommand(){
   return input;
 }
 
+// Reads a command and runs the matching movement.
 void loop() {
   String input = readCommand();
 
