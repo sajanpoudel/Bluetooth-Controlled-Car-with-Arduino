@@ -74,6 +74,7 @@ void drive(int leftSpeed, int rightSpeed, int l1, int l2, int r1, int r2){
   digitalWrite(motorRpin2, r2);
 }
 
+// Both sides forward.
 void fwd(){
   drive(motorSpeed, motorSpeed, 1, 0, 1, 0);
 }
