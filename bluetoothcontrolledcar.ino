@@ -79,6 +79,7 @@ void fwd(){
   drive(motorSpeed, motorSpeed, 1, 0, 1, 0);
 }
 
+// Both sides backward.
 void rev(){
   drive(motorSpeed, motorSpeed, 0, 1, 0, 1);
 }
