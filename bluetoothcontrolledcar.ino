@@ -89,6 +89,7 @@ void lft(){
   drive(motorSpeed - turn, motorSpeed + turn, 0, 1, 1, 0);
 }
 
+// Right side slower and reversed, so the car turns right.
 void rght(){
   drive(motorSpeed + turn, motorSpeed - turn, 1, 0, 0, 1);
 }
