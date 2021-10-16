@@ -84,6 +84,7 @@ void rev(){
   drive(motorSpeed, motorSpeed, 0, 1, 0, 1);
 }
 
+// Left side slower and reversed, so the car turns left.
 void lft(){
   drive(motorSpeed - turn, motorSpeed + turn, 0, 1, 1, 0);
 }
