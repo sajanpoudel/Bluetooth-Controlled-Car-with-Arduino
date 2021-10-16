@@ -94,6 +94,7 @@ void rght(){
   drive(motorSpeed + turn, motorSpeed - turn, 1, 0, 0, 1);
 }
 
+// Brakes both motors.
 void stp(){
   drive(0, 0, 1, 1, 1, 1);
 }
