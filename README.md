@@ -22,3 +22,9 @@ An Arduino car that is driven by text commands sent from a phone over a Bluetoot
 
 Open `bluetoothcontrolledcar.ino` in the Arduino IDE, upload it, then pair the
 Bluetooth module with your phone and send the commands above.
+
+
+## More documentation
+
+- [Wiring](docs/wiring.md)
+- [Commands](docs/commands.md)
